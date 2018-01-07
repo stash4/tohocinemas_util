@@ -113,3 +113,37 @@ def showing_theater(mcode):
     res = requests.get(url)
     res.encoding = res.apparent_encoding
     return res.json()
+
+
+def movie_schedule(
+        mcode,
+        vg_cd,
+        show_day,
+        term=99,
+        isMember='',
+        site_cd,
+        enter_kbn=''):
+    '''
+    Get schedule of a specified movie in a specified theater.
+    reference: /net/schedule/TNPI3070J01.do
+            ?__type__=json&movie_cd=:sakuhin_code&vg_cd=:vit_group_code&show_day=:show_date&term=99&isMember=&site_cd=:site_id&enter_kbn=&_dc=:unix_time
+    '''
+    type_ = 'json'
+    unix_time = datetime.now().strftime('%s')
+
+    query = urllib.parse.urlencode({
+        '__type__': type_,
+        'movie_cd': mcode,
+        'vg_cd': str(vg_cd),
+        'show_day': str(show_day),
+        'term': str(term),
+        'isMember': isMember,
+        'site_cd': site_cd,
+        'enter_kbn': enter_kbn,
+        '_dc': unix_time
+    })
+    url = f'{BASE_URL}/net/schedule/TNPI3070J01.do?{query}'
+
+    res = requests.get(url)
+    res.encoding = res.apparent_encoding
+    return res.json()
