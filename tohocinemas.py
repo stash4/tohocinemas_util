@@ -32,3 +32,16 @@ def movie_desc(mcode):
     detail_soup = BeautifulSoup(detail.text, 'html.parser')
     desc = detail_soup.find(property='og:description').get('content')
     return desc
+
+
+def theater_list():
+    '''
+    Get a list of theaters.
+    Retern json.
+    '''
+    unix_time = datetime.now().strftime('%s')
+    url = f'{BASE_URL}responsive/json/theater_list.json?_dc={unix_time}'
+
+    res = requests.get(url)
+    res.encoding = res.apparent_encoding
+    return res.json()
