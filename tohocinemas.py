@@ -69,3 +69,33 @@ def theater_schedule(vg_cd, show_day, term=99, isMember='', enter_kbn=''):
     res = requests.get(url)
     res.encoding = res.apparent_encoding
     return res.json()
+
+
+def theater_calender(
+        vg_cd,
+        show_day,
+        term=99,
+        seq_disp_term=7,
+        isMember='',
+        enter_kbn=''):
+    '''
+    Get a schedule of a theater specified by vitCD.
+    '''
+    type_ = 'json'
+    unix_time = datetime.now().strftime('%s')
+
+    query = urllib.parse.urlencode({
+        '__type__': type_,
+        'vg_cd': str(vg_cd),
+        'show_day': str(show_day),
+        'term': str(term),
+        'seq_disp_term': seq_disp_term,
+        'isMember': isMember,
+        'enter_kbn': enter_kbn,
+        '_dc': unix_time
+    })
+    url = f'{BASE_URL}/net/schedule/TNPI3050J03.do?{query}'
+
+    res = requests.get(url)
+    res.encoding = res.apparent_encoding
+    return res.json()
