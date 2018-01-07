@@ -99,3 +99,17 @@ def theater_calender(
     res = requests.get(url)
     res.encoding = res.apparent_encoding
     return res.json()
+
+
+def showing_theater(mcode):
+    '''
+    Get theaters showing a specified movie.
+    reference: /images_net/movie/:sakuhin_code/TNPI3060_2_:sakuhin_code.JSON
+            ?_dc=:unix_time
+    '''
+    unix_time = datetime.now().strftime('%s')
+    url = f'/images_net/movie/{mcode}/TNPI3060_2_{mcode}.JSON?_dc={unix_time}'
+
+    res = requests.get(url)
+    res.encoding = res.apparent_encoding
+    return res.json()
