@@ -147,3 +147,33 @@ def movie_schedule(
     res = requests.get(url)
     res.encoding = res.apparent_encoding
     return res.json()
+
+
+def get_purchase_url(
+        site_cd,
+        show_day,
+        theater_cd,
+        screen_cd,
+        pf_no,
+        fnc=1,
+        page_id='2000J01',
+        enrter_kbn=''):
+    '''
+    Get url for reserving seats.
+    reference: /net/ticket/:site_cd/TNPI2040J03.do
+    '''
+
+    query = urllib.parse.urlencode({
+        'site_cd': site_cd,
+        'jyoei_date': show_day,
+        'gekijyo_cd': theater_cd,
+        'screen_cd': screen_cd,
+        'sakuhin_cd': moviecd,
+        'pf_no': pf_no,
+        'fnc': fnc,
+        'pageid': page_id,
+        'enter_kbn': enrter_kbn
+    })
+    url = f'{BASE_URL}/net/ticket/{site_cd}/TNPI2040J03.do?{query}'
+
+    return url
