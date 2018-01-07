@@ -119,9 +119,9 @@ def movie_schedule(
         mcode,
         vg_cd,
         show_day,
+        site_cd,
         term=99,
         isMember='',
-        site_cd,
         enter_kbn=''):
     '''
     Get schedule of a specified movie in a specified theater.
