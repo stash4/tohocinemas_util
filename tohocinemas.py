@@ -177,3 +177,16 @@ def get_purchase_url(
     url = f'{BASE_URL}/net/ticket/{site_cd}/TNPI2040J03.do?{query}'
 
     return url
+
+
+def coming_soon():
+    '''
+    Get a list of movies coming soon.
+    reference: /data_net/json/movie/TNPI3080.JSON?_dc=:unix_time
+    '''
+    unix_time = datetime.now().strftime('%s')
+    url = f'{BASE_URL}/data_net/json/movie/TNPI3080.JSON?_dc={unix_time}'
+
+    res = requests.get(url)
+    res.encoding = res.apparent_encoding
+    return res.json()
